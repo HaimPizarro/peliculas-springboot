@@ -3,7 +3,6 @@ package com.example.peliculas.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.peliculas.exceptions.PeliculasNotFound;
 import com.example.peliculas.models.Pelicula;
 import com.example.peliculas.services.PeliculaService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +27,6 @@ public class PeliculaController {
     
     @GetMapping("/{id}")
     public Pelicula obtenerPorId(@PathVariable Long id) {
-        return peliculaService.obtenerPorId(id).orElseThrow(() -> new PeliculasNotFound(id));
+        return peliculaService.obtenerPorId(id);
     }
 }
