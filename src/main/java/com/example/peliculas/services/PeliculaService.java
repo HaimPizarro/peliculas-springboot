@@ -25,4 +25,4 @@ public class PeliculaService {
         return peliculasRepository.findById(id)
                 .orElseThrow(() -> new PeliculasNotFound(id));
     }
-}
+} 
