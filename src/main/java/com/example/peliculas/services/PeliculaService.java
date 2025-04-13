@@ -32,4 +32,20 @@ public class PeliculaService {
         }
         return peliculasRepository.save(pelicula);
     }
+
+    public  Pelicula actualizar(Long id, Pelicula peliculaActualizada) {
+        Pelicula peliculaActualizadaRes = peliculasRepository.findById(id)
+                .orElseThrow(() -> new PeliculasNotFound(id));
+        peliculaActualizadaRes.setTitulo(peliculaActualizada.getTitulo());
+        peliculaActualizadaRes.setAnio(peliculaActualizada.getAnio());
+        peliculaActualizadaRes.setDirector(peliculaActualizada.getDirector());
+        peliculaActualizadaRes.setGenero(peliculaActualizada.getGenero());
+        peliculaActualizadaRes.setSinopsis(peliculaActualizada.getSinopsis());
+        return peliculasRepository.save(peliculaActualizadaRes);
+    }
+
+    public void eliminar(Long id) {
+        Pelicula peliculaEliminadaRes = peliculasRepository.findById(id).orElseThrow(() -> new PeliculasNotFound(id));
+        peliculasRepository.delete(peliculaEliminadaRes);
+    }
 } 
