@@ -25,4 +25,11 @@ public class PeliculaService {
         return peliculasRepository.findById(id)
                 .orElseThrow(() -> new PeliculasNotFound(id));
     }
+
+    public Pelicula guardar(Pelicula pelicula) {
+        if (peliculasRepository.existsById(pelicula.getId())) {
+            throw new IllegalArgumentException("Ya existe una pelicula con ese id: "+pelicula.getId());
+        }
+        return peliculasRepository.save(pelicula);
+    }
 } 

@@ -1,12 +1,20 @@
 package com.example.peliculas.controllers;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.peliculas.models.Pelicula;
 import com.example.peliculas.services.PeliculaService;
+import com.example.peliculas.exceptions.PeliculasNotFound;
+import com.example.peliculas.models.ResponseWrapper;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -28,5 +36,19 @@ public class PeliculaController {
     @GetMapping("/{id}")
     public Pelicula obtenerPorId(@PathVariable Long id) {
         return peliculaService.obtenerPorId(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<ResponseWrapper<Pelicula>> crear(@Valid @RequestBody Pelicula pelicula) {
+        Pelicula nuevaPelicula = peliculaService.guardar(pelicula);
+        ResponseWrapper<Pelicula> wrapper = new ResponseWrapper<>("Pelicula creada con exito", 1, List.of(nuevaPelicula));
+        return ResponseEntity.status(HttpStatus.CREATED).body(wrapper);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseWrapper<Pelicula>> actualizar(@PathVariable Long id, @Valid @RequestBody Pelicula peliculaActualizada ) {
+        Pelicula peliculaActualizadaRes = peliculaService.actualizar(id, peliculaActualizada);
+        ResponseWrapper<Pelicula> wrapper = new ResponseWrapper<>("Pelicula actualizada con exito", 1, List.of(peliculaActualizadaRes));
+        return ResponseEntity.ok(wrapper);
     }
 }
