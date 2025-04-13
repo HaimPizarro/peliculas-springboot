@@ -3,12 +3,10 @@ package com.example.peliculas.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.peliculas.models.Pelicula;
 import com.example.peliculas.services.PeliculaService;
-import com.example.peliculas.exceptions.PeliculasNotFound;
 import com.example.peliculas.models.ResponseWrapper;
 import jakarta.validation.Valid;
 

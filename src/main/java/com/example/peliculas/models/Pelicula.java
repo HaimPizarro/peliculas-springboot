@@ -2,8 +2,6 @@ package com.example.peliculas.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 
 import lombok.Data;
@@ -27,7 +25,6 @@ public class Pelicula {
     @Id
     @NotNull(message = "El campo id no puede ser nulo")
     @Positive(message = "El campo id debe ser un número positivo")
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Long id;
     
     @NotBlank(message = "El campo titulo no puede estar en blanco")
