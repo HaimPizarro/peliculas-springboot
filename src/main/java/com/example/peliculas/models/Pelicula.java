@@ -19,7 +19,7 @@ import jakarta.validation.constraints.Positive;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "PELICULA", schema = "SPRING_BOOT_E1")
+@Table
 public class Pelicula {
     
     @Id

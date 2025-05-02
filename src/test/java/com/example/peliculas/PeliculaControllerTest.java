@@ -5,6 +5,7 @@ import com.example.peliculas.hateoas.PeliculaModelAssembler;
 import com.example.peliculas.models.Pelicula;
 import com.example.peliculas.services.PeliculaService;
 
+import org.springframework.hateoas.MediaTypes;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -53,8 +54,9 @@ class PeliculaControllerTest {
         when(peliculaAssembler.toModel(pelicula)).thenReturn(peliculaModel);
 
         // ---- Act & Assert -------------------------------------------------
-        mockMvc.perform(get("/peliculas/1").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+        mockMvc.perform(get("/peliculas/1")
+        .accept(MediaTypes.HAL_JSON))          // 👈 ahora pedimos HAL
+      .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.titulo").value("Matrix"))
                 .andExpect(jsonPath("$.anio").value(1999))
@@ -62,6 +64,6 @@ class PeliculaControllerTest {
                 .andExpect(jsonPath("$._links.self.href").exists())
                 .andExpect(jsonPath("$._links.update.href").exists())
                 .andExpect(jsonPath("$._links.delete.href").exists())
-                .andExpect(jsonPath("$._links.all.href").exists());   // ← **punto-coma imprescindible**
+                .andExpect(jsonPath("$._links.all.href").exists());
     }
 }
